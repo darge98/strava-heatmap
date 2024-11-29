@@ -35,7 +35,7 @@ jobs:
 
       - name: Build Angular application
         run: |
-          ng build --configuration production
+          npm run build --configuration production
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
