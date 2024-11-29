@@ -6,6 +6,10 @@ on:
       - master
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -30,7 +34,7 @@ jobs:
             production: true,
             clientId: ${{ secrets.CLIENT_ID }},
             clientSecret: "${{ secrets.CLIENT_SECRET }}",
-            redirectUri: "https://strava.heatmap/auth-callback"
+            redirectUri: "http://darge98.github.io/strava-heatmap/auth-callback"
           };' > src/environments/environment.prod.ts
 
       - name: Build Angular application
