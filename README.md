@@ -1,27 +1,76 @@
-# StravaHeatmap
+# Strava Heatmap 🗺️
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.5.
+Strava Heatmap is a **mobile-first** web application built with **Angular** that leverages the **Strava API** to generate heatmaps of your workouts. It allows you to authenticate with Strava, view a list of your recent activities, and dive deeper into the details of each activity through a personalized heatmap of your workout route.
 
-## Development server
+### 🌐 **Demo**
+[Try the application here!](https://darge98.github.io/strava-heatmap/)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+---
 
-## Code scaffolding
+## 🚀 **Main Features**
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. **Strava Authentication**:
+   - Securely log in using the Strava OAuth protocol.
+2. **Recent Activities List**:
+   - View all your recorded activities on Strava.
+3. **Detailed Heatmap for Each Activity**:
+   - Explore the details of each activity with an interactive map that shows the density of your route.
+4. **Mobile-First Design**:
+   - Optimized for mobile devices for a seamless experience.
+5. **Modern Technologies**:
+   - Uses **Nebular UI** for a sleek interface and **Leaflet** for interactive maps.
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## 🛠️ **Technologies Used**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **Angular 18**
+- **Nebular UI**: A modern CSS framework for responsive and attractive user interfaces.
+- **Leaflet + Leaflet.heat**: For interactive maps and heatmap visualizations.
+- **Strava API**: For accessing and managing workout data.
+- **TypeScript**: Ensures type-safety in the application.
 
-## Running end-to-end tests
+---
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## 📦 **Installation and Usage**
 
-## Further help
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/darge98/strava-heatmap.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd strava-heatmap
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Configure your Strava API credentials:
+   - Register an app on Strava Developers.
+   - Obtain the Client ID and Client Secret.
+   - Edit the environment.ts file with the following values:
+   ```ts
+   clientId: 'xxxxx',
+   clientSecret: 'xxxxx',
+   redirectUri: 'http://localhost:4200/auth-callback'
+   ```
+5. Start the application in development mode:
+   ```bash
+   ng serve
+   ```
+6. Open your browser and navigate to http://localhost:4200.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+
+## 📖 **Project Structure**
+```
+src/
+├── app/
+│   ├── guards/            # Angular guards
+│   ├── pages/             # Main pages (login, dashboard, activity details)
+│   ├── pipes/             # Angular pipes
+│   ├── services/          # Services for interacting with Strava
+└── environments/          # Environment configuration (dev/prod)
+```
