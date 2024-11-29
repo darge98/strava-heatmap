@@ -3,7 +3,7 @@
 Strava Heatmap is a **mobile-first** web application built with **Angular** that leverages the **Strava API** to generate heatmaps of your workouts. It allows you to authenticate with Strava, view a list of your recent activities, and dive deeper into the details of each activity through a personalized heatmap of your workout route.
 
 ### 🌐 **Demo**
-[Try the application here!](https://darge98.github.io/strava-heatmap/)
+[Try the application here!](https://strava-heatmap-gold.vercel.app)
 
 ---
 
