@@ -2,10 +2,11 @@ import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {StravaService} from "../../../services/strava/strava.service";
 import {CommonModule, DatePipe, DecimalPipe} from "@angular/common";
-import * as L from 'leaflet';
-import 'leaflet.heat/dist/leaflet-heat.js'
 import {NbCardModule, NbLayoutModule} from "@nebular/theme";
 import {ElapsedTimePipe} from "../../../pipes/elapsed-time.pipe";
+import {LeafletModule} from "@asymmetrik/ngx-leaflet";
+import * as L from 'leaflet';
+import 'leaflet.heat';
 
 @Component({
   selector: 'app-activity-detail',
@@ -16,7 +17,8 @@ import {ElapsedTimePipe} from "../../../pipes/elapsed-time.pipe";
     CommonModule,
     NbLayoutModule,
     NbCardModule,
-    ElapsedTimePipe
+    ElapsedTimePipe,
+    LeafletModule
   ],
   templateUrl: './activity-detail.component.html',
   styleUrls: ['./activity-detail.component.scss']
@@ -29,8 +31,7 @@ export class ActivityDetailComponent implements OnInit {
   activity: any;
   loading = true;
   errorMessage: string | null = null;
-  map: any;
-
+  private map: any;
 
   ngOnInit(): void {
     const activityId = +this.route.snapshot.paramMap.get('id')!;
