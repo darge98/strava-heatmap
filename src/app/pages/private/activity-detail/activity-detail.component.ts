@@ -4,8 +4,11 @@ import {StravaService} from "../../../services/strava/strava.service";
 import {CommonModule, DatePipe, DecimalPipe} from "@angular/common";
 import {NbCardModule, NbLayoutModule} from "@nebular/theme";
 import {ElapsedTimePipe} from "../../../pipes/elapsed-time.pipe";
-import * as L from 'leaflet';
+import * as leaflet from 'leaflet';
+import 'leaflet';
 import 'leaflet.heat';
+// workaround for angular 18, otherwise leaflet.heat doesn't work
+declare let L: typeof leaflet;
 
 @Component({
   selector: 'app-activity-detail',
