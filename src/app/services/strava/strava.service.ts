@@ -16,9 +16,9 @@ export class StravaService {
   private stravaApiUrl = 'https://www.strava.com/api/v3';
   private stravaAuthUrl = 'https://www.strava.com/oauth/authorize';
   private stravaTokenUrl = 'https://www.strava.com/oauth/token';
-  private clientId = environment.clientId;
-  private clientSecret = environment.clientSecret;
-  private redirectUri = environment.redirectUri;
+  private clientId: string = environment.clientId || '';
+  private clientSecret: string = environment.clientSecret || '';
+  private redirectUri: string = environment.redirectUri || '';
 
   /**
    * Redirects the user to Strava's authorization page to log in and authorize the application.
