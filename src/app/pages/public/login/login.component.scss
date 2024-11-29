@@ -1,0 +1,46 @@
+.login-card {
+  max-width: 380px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  .login-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+
+    h1 {
+      font-size: 1.8rem;
+      color: #333;
+      font-weight: 600;
+    }
+  }
+
+  .strava-logo {
+    height: 36px;
+    margin-right: 12px;
+  }
+
+  .strava-btn {
+    width: 100%;
+    background-color: var(--strava-hex) !important;
+    color: white !important;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 12px 20px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+}

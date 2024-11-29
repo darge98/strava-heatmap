@@ -1,0 +1,55 @@
+.activity-header {
+  font-size: 2rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  text-align: center;
+  color: #333;
+  margin-top: 1rem;
+}
+
+.activity-card {
+  max-width: 900px;
+  margin: 2rem auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Ombra per un effetto di profondità */
+}
+
+.nb-card-header {
+  background-color: #FC4C02;
+  color: white;
+  padding: 1rem;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.nb-card-body {
+  padding: 2rem;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+
+.grid-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+#heatmap {
+  height: 400px;
+  margin-top: 2rem;
+  border-radius: 12px; /* Arrotondamento mappa */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Ombra per la mappa */
+}
+
+/* Aggiunta di uno sfondo per la pagina */
+nb-layout {
+  background-color: #f4f6f9;
+}

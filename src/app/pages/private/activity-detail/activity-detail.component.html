@@ -1,0 +1,31 @@
+<nb-layout>
+  <nb-layout-header>
+    <h1>{{ activity?.name }}</h1>
+  </nb-layout-header>
+
+  <nb-layout-column>
+    <nb-card class="activity-card">
+      <nb-card-header>
+        <h4>Dettagli Attività</h4>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="grid-container">
+          <div class="grid-item">
+            <p><strong>Type:</strong> {{ activity?.type }}</p>
+          </div>
+          <div class="grid-item">
+            <p><strong>Date:</strong> {{ activity?.start_date | date }}</p>
+          </div>
+          <div class="grid-item">
+            <p><strong>Time:</strong> {{ activity?.elapsed_time | elapsedTime }}</p>
+          </div>
+          <div class="grid-item">
+            <p><strong>Distance:</strong> {{ activity?.distance | number: '1.0-0' }} metri</p>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+
+    <div id="heatmap"></div>
+  </nb-layout-column>
+</nb-layout>

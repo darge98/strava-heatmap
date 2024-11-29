@@ -1,0 +1,16 @@
+<nb-layout>
+  <nb-layout-column>
+    <nb-card class="authenticating-card">
+      <nb-card-header class="auth-header">
+        <h1>Authenticating...</h1>
+      </nb-card-header>
+
+      <nb-card-body class="text-center">
+        <nb-spinner size="giant" status="warning" message="Connecting to Strava..."></nb-spinner>
+        @if (errorMessage) {
+          <div class="error-message">{{ errorMessage }}</div>
+        }
+      </nb-card-body>
+    </nb-card>
+  </nb-layout-column>
+</nb-layout>

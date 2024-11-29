@@ -1,0 +1,45 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Modify environment.prod.ts with secrets
+        run: |
+          # Sostituzione dei valori nei placeholder nel file environment.prod.ts
+          sed -i 's|\${{ secrets.clientId }}|'"${{ secrets.clientId }}"'|g' src/environments/environment.prod.ts
+          sed -i 's|\${{ secrets.clientSecret }}|'"${{ secrets.clientSecret }}"'|g' src/environments/environment.prod.ts
+          sed -i 's|\${{ secrets.redirectUri }}|'"${{ secrets.redirectUri }}"'|g' src/environments/environment.prod.ts
+
+          # Verifica che la modifica sia avvenuta
+          cat src/environments/environment.prod.ts
+
+      - name: Build Angular application
+        run: |
+          ng build --configuration production
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4.2.0
+        with:
+          branch: gh-pages
+          folder: dist/strava-heatmap
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
