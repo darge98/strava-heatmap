@@ -3,7 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {StravaService} from "../../../services/strava/strava.service";
 import {CommonModule, DatePipe, DecimalPipe} from "@angular/common";
 import * as L from 'leaflet';
-import 'leaflet.heat';
+import 'leaflet.heat/dist/leaflet-heat.js'
 import {NbCardModule, NbLayoutModule} from "@nebular/theme";
 import {ElapsedTimePipe} from "../../../pipes/elapsed-time.pipe";
 
