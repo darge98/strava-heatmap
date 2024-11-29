@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  clientId: process.env["CLIENT_ID"],
-  clientSecret: process.env["CLIENT_SECRET"],
-  redirectUri: process.env["REDIRECT_URI"]
+  clientId: '141368',
+  clientSecret: '41e02252d605e335ad44e434f0b89693820bd4f3',
+  redirectUri: 'https://strava-heatmap-gold.vercel.app/auth-callback'
 };
