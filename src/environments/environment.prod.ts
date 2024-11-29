@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  clientId: "${{ SECRETS.CLIENT_ID }}",
-  clientSecret: '${{ SECRETS.CLIENT_SECRET }}',
-  redirectUri: '${{ SECRETS.REDIRECT_URI }}'
+  clientId: process.env["CLIENT_ID"],
+  clientSecret: process.env["CLIENT_SECRET"],
+  redirectUri: process.env["REDIRECT_URI"]
 };
