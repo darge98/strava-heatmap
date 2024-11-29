@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
   clientId: '141368',
-  clientSecret: 'd2b014d7be925159a5a2283a81ba7c644d3bd98f',
+  clientSecret: '41e02252d605e335ad44e434f0b89693820bd4f3',
   redirectUri: 'http://localhost:4200/auth-callback'
 };

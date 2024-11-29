@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {StravaService} from "../../../services/strava/strava.service";
 import {CommonModule, DatePipe, DecimalPipe} from "@angular/common";
 import * as L from 'leaflet';

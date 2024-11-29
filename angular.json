@@ -32,7 +32,8 @@
               "node_modules/@nebular/theme/styles/prebuilt/default.scss"
             ],
             "scripts": [
-              "node_modules/leaflet/dist/leaflet.js"
+              "node_modules/leaflet/dist/leaflet.js",
+              "node_modules/leaflet.heat/dist/leaflet-heat.js"
             ],
             "allowedCommonJsDependencies": [
               "leaflet",

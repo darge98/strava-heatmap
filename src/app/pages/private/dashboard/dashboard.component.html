@@ -4,17 +4,18 @@
   </nb-layout-header>
 
   <nb-layout-column>
-    <div *ngIf="loading()" class="loading-spinner">
+    @if (loading()) {
       <nb-spinner size="giant" status="warning" message="Loading activities..."></nb-spinner>
-    </div>
+    } @else {
+      <table [nbTreeGrid]="dataSource" equalColumnsWidth class="activity-table">
 
-    <table *ngIf="!loading()" [nbTreeGrid]="dataSource" equalColumnsWidth class="activity-table">
-      <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="columns"></tr>
-      <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: columns" (click)="viewActivity(row.data['id'])" class="activity-row">
-      </tr>
+        <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="columns"></tr>
+        <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: columns" (click)="viewActivity(row)"
+            class="activity-row">
+        </tr>
 
-      <ng-container *ngFor="let c of columns" [nbTreeGridColumnDef]="c">
-        <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>
+        <ng-container *ngFor="let c of columns" [nbTreeGridColumnDef]="c">
+          <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>
           <span class="column-header">
             @switch (c) {
               @case ('name') {
@@ -28,18 +29,19 @@
               }
             }
           </span>
-        </th>
-        <td nbTreeGridCell *nbTreeGridCellDef="let row">
-          @switch (c) {
-            @case ('start_date') {
-              {{row.data[c] | date: 'short'}}
+          </th>
+          <td nbTreeGridCell *nbTreeGridCellDef="let row">
+            @switch (c) {
+              @case ('start_date') {
+                {{ row?.data[c] | date: 'short' }}
+              }
+              @default {
+                {{ row?.data[c] }}
+              }
             }
-            @default {
-              {{row.data[c]}}
-            }
-          }
-        </td>
-      </ng-container>
-    </table>
+          </td>
+        </ng-container>
+      </table>
+    }
   </nb-layout-column>
 </nb-layout>

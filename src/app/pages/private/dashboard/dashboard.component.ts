@@ -10,7 +10,7 @@ import {
   NbTreeGridDataSourceBuilder,
   NbTreeGridModule
 } from "@nebular/theme";
-import {Observable, take, tap} from "rxjs";
+import {take} from "rxjs";
 import {Activity} from "../../../services/strava/activity";
 
 @Component({
@@ -32,14 +32,13 @@ export class DashboardComponent {
   private router = inject(Router);
   private dataSourceBuilder = inject(NbTreeGridDataSourceBuilder<any>);
 
-  columns = ['name', 'type', 'start_date'];
-
-  loading = signal(true);
+  readonly columns: ReadonlyArray<string> = ['name', 'type', 'start_date'];
+  readonly loading = signal(true);
 
   private getters: NbGetters<Activity, Activity> = {
     dataGetter: (node: Activity) => node,
-    childrenGetter: (node: Activity) => undefined,
-    expandedGetter: (node: Activity) => true
+    childrenGetter: (_: Activity) => undefined,
+    expandedGetter: (_: Activity) => true
   };
   dataSource = this.dataSourceBuilder.create([], this.getters)
 
@@ -50,24 +49,22 @@ export class DashboardComponent {
       return;
     }
 
-    this.extractActivities(accessToken).pipe(take(1))
-      .subscribe((response: Activity[]) => {
-          this.dataSource.setData(response, this.getters);
-        }
-      )
-  }
-
-  private extractActivities(accessToken: string): Observable<any> {
-    return this.stravaService.getRecentActivities(accessToken).pipe(
-      tap({
-        next: (event) => this.loading.set(false),
-        error: () => this.loading.set(false)
+    this.stravaService.getRecentActivities(accessToken).pipe(take(1))
+      .subscribe({
+        next: data => {
+          this.dataSource.setData(data, this.getters);
+        },
+        error: error => {
+        },
+        complete: () => this.loading.set(false)
       })
-    );
   }
 
   // Funzione per visualizzare i dettagli di un'attività
-  viewActivity(activityId: number): void {
-    this.router.navigate(['/activity', activityId]);
+  viewActivity(row: any): void {
+    if (!row?.data['id']) {
+      return;
+    }
+    this.router.navigate(['/activity', row?.data['id']]);
   }
 }
