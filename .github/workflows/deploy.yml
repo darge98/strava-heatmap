@@ -29,8 +29,8 @@ jobs:
           echo 'export const environment = {
             production: true,
             clientId: ${{ secrets.CLIENT_ID }},
-            clientSecret: '${{ secrets.CLIENT_SECRET }}',
-            redirectUri: 'https://strava.heatmap/auth-callback'
+            clientSecret: "${{ secrets.CLIENT_SECRET }}",
+            redirectUri: "https://strava.heatmap/auth-callback"
           };' > src/environments/environment.prod.ts
 
       - name: Build Angular application
