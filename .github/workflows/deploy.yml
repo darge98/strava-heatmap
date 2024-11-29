@@ -23,15 +23,15 @@ jobs:
         run: |
           npm install
 
-      - name: Modify environment.prod.ts with secrets
-        run: |
-          # Sostituzione dei valori nei placeholder nel file environment.prod.ts
-          sed -i 's|\${{ secrets.clientId }}|'"${{ secrets.clientId }}"'|g' src/environments/environment.prod.ts
-          sed -i 's|\${{ secrets.clientSecret }}|'"${{ secrets.clientSecret }}"'|g' src/environments/environment.prod.ts
-          sed -i 's|\${{ secrets.redirectUri }}|'"${{ secrets.redirectUri }}"'|g' src/environments/environment.prod.ts
 
-          # Verifica che la modifica sia avvenuta
-          cat src/environments/environment.prod.ts
+      - name: Sovrascrivere il file di configurazione
+        run: |
+          echo 'export const environment = {
+            production: true,
+            clientId: "$CLIENT_ID",
+            clientSecret: '${{ secrets.API_KEY }}',
+            redirectUri: '$REDIRECT_URI'
+          };' > src/environments/environment.prod.ts
 
       - name: Build Angular application
         run: |
@@ -43,9 +43,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
           path: 'dist/strava-heatmap'
-          
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
