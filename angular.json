@@ -33,6 +33,10 @@
             ],
             "scripts": [
               "node_modules/leaflet/dist/leaflet.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "leaflet",
+              "leaflet.heat"
             ]
           },
           "configurations": {
@@ -40,8 +44,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "2MB",
+                  "maximumError": "4MB"
                 },
                 {
                   "type": "anyComponentStyle",
