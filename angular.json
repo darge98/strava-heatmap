@@ -16,6 +16,7 @@
             "outputPath": "dist/strava-heatmap",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "baseHref": "/strava-heatmap/",
             "polyfills": [
               "zone.js"
             ],
