@@ -4,7 +4,6 @@ import {StravaService} from "../../../services/strava/strava.service";
 import {CommonModule, DatePipe, DecimalPipe} from "@angular/common";
 import {NbCardModule, NbLayoutModule} from "@nebular/theme";
 import {ElapsedTimePipe} from "../../../pipes/elapsed-time.pipe";
-import {LeafletModule} from "@asymmetrik/ngx-leaflet";
 import * as L from 'leaflet';
 import 'leaflet.heat';
 
@@ -17,8 +16,7 @@ import 'leaflet.heat';
     CommonModule,
     NbLayoutModule,
     NbCardModule,
-    ElapsedTimePipe,
-    LeafletModule
+    ElapsedTimePipe
   ],
   templateUrl: './activity-detail.component.html',
   styleUrls: ['./activity-detail.component.scss']
@@ -70,7 +68,13 @@ export class ActivityDetailComponent implements OnInit {
 
     const heatmapPoints = decodedRoute.map((point: any) => [point[0], point[1], 0.5]);  // 0.5 è l'intensità della heatmap
 
-    (L as any).heatLayer(heatmapPoints, {radius: 10, blur: 15, maxZoom: 17}).addTo(this.map);
+    L.heatLayer(heatmapPoints as any, {radius: 10, blur: 15, maxZoom: 17}).addTo(this.map);
+    /*import('leaflet.heat').then((module) => {
+      const heatLayer = module.default;
+      heatLayer(heatmapPoints, { radius: 10, blur: 15, maxZoom: 17 }).addTo(this.map);
+    }).catch((error) => {
+      console.error('Errore nel caricare leaflet.heat:', error);
+    });*/
   }
 
   // Funzione per decodificare la polilinea (Strava usa il formato encoded polyline)

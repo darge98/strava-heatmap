@@ -8,3 +8,5 @@ declare module 'leaflet' {
 
   export { leaflet };
 }
+
+declare module 'leaflet.heat';
