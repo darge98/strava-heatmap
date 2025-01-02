@@ -1,12 +1,13 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {StravaService} from "../../../services/strava/strava.service";
-import {CommonModule, DatePipe, DecimalPipe} from "@angular/common";
-import {NbCardModule, NbLayoutModule} from "@nebular/theme";
+import {CommonModule, DatePipe, DecimalPipe, Location} from "@angular/common";
+import {NbCardModule, NbLayoutModule, NbIconModule} from "@nebular/theme";
 import {ElapsedTimePipe} from "../../../pipes/elapsed-time.pipe";
 import * as leaflet from 'leaflet';
 import 'leaflet';
 import 'leaflet.heat';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 // workaround for angular 18, otherwise leaflet.heat doesn't work
 declare let L: typeof leaflet;
 
@@ -19,7 +20,9 @@ declare let L: typeof leaflet;
     CommonModule,
     NbLayoutModule,
     NbCardModule,
-    ElapsedTimePipe
+    ElapsedTimePipe,
+    NbIconModule,
+    NbEvaIconsModule
   ],
   templateUrl: './activity-detail.component.html',
   styleUrls: ['./activity-detail.component.scss']
@@ -28,6 +31,7 @@ export class ActivityDetailComponent implements OnInit {
 
   private route = inject(ActivatedRoute);
   private stravaService = inject(StravaService);
+  private location = inject(Location);
 
   activity: any;
   loading = true;
@@ -36,25 +40,19 @@ export class ActivityDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const activityId = +this.route.snapshot.paramMap.get('id')!;
-    const accessToken = localStorage.getItem('stravaAccessToken');
 
-    if (accessToken) {
-      // Recupera i dettagli dell'attività
-      this.stravaService.getActivityById(accessToken, activityId).subscribe({
-        next: (response) => {
-          this.activity = response;
-          this.loading = false;
-          this.loadHeatmap();
-        },
-        error: (error) => {
-          this.errorMessage = 'Errore durante il recupero dei dettagli dell\'attività.';
-          this.loading = false;
-        }
-      });
-    } else {
-      this.errorMessage = 'Token di accesso non trovato.';
-      this.loading = false;
-    }
+    // Recupera i dettagli dell'attività
+    this.stravaService.getActivityById(activityId).subscribe({
+      next: (response) => {
+        this.activity = response;
+        this.loading = false;
+        this.loadHeatmap();
+      },
+      error: (error) => {
+        this.errorMessage = 'Errore durante il recupero dei dettagli dell\'attività.';
+        this.loading = false;
+      }
+    });
   }
 
   // Funzione per caricare e visualizzare la heatmap
@@ -106,5 +104,9 @@ export class ActivityDetailComponent implements OnInit {
       points.push([lat / 1e5, lng / 1e5]);
     }
     return points;
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

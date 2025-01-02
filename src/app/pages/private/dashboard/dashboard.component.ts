@@ -12,6 +12,7 @@ import {
 } from "@nebular/theme";
 import {take} from "rxjs";
 import {Activity} from "../../../services/strava/activity";
+import { TokenService } from '../../../services/token/token.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -43,13 +44,7 @@ export class DashboardComponent {
   dataSource = this.dataSourceBuilder.create([], this.getters)
 
   constructor() {
-    const accessToken = localStorage.getItem('stravaAccessToken');
-    if (!accessToken) {
-      this.router.navigate(['login']);
-      return;
-    }
-
-    this.stravaService.getRecentActivities(accessToken).pipe(take(1))
+    this.stravaService.getRecentActivities().pipe(take(1))
       .subscribe({
         next: data => {
           this.dataSource.setData(data, this.getters);

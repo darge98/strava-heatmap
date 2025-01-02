@@ -15,11 +15,14 @@ import {TokenService} from "../services/token/token.service";
  * @param state - The router state that is being checked.
  * @returns A boolean indicating whether the route can be activated.
  */
-export const hasAccessTokenGuard: CanActivateFn = (route, state) => {
+export const isAccessTokenValidGuard: CanActivateFn = (route, state) => {
   const tokenService = inject(TokenService);
   const router = inject(Router);
 
-  if (!tokenService.getToken('stravaAccessToken')) {
+  if (!tokenService.getAccessToken() || tokenService.isAccessTokenExpired()) {
+    console.error('Access token non valido');
+    console.error(tokenService.getAccessToken());
+    console.error(tokenService.isAccessTokenExpired());
     router.navigate(['/login']);
     return false;
   }

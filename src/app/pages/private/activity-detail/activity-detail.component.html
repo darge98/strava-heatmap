@@ -1,5 +1,11 @@
 <nb-layout>
   <nb-layout-header>
+    <nb-icon 
+      icon="arrow-back-outline" 
+      class="back-icon" 
+      (click)="goBack()" 
+      style="cursor: pointer; margin-right: 1rem;">
+    </nb-icon>
     <h1>{{ activity?.name }}</h1>
   </nb-layout-header>
 

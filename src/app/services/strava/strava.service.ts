@@ -48,27 +48,39 @@ export class StravaService {
   }
 
   /**
+   * Aggiorna il token Strava usando il refresh token
+   * @param refreshToken - Il refresh token salvato precedentemente
+   */
+  refreshToken(refreshToken: string) {
+    const params = {
+      client_id: this.clientId,
+      client_secret: this.clientSecret,
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken
+    };
+
+    return this.http.post<unknown>(
+      this.stravaTokenUrl,
+      params
+    );
+  }
+
+  /**
    * Fetches the recent activities of the authenticated athlete.
    *
-   * @param accessToken - The access token for authenticating the request.
    * @returns An observable containing an array of recent activities.
    */
-  getRecentActivities(accessToken: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.stravaApiUrl}/athlete/activities`, {
-      headers: new HttpHeaders().set('Authorization', `Bearer ${accessToken}`),
-    });
+  getRecentActivities(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.stravaApiUrl}/athlete/activities`);
   }
 
   /**
    * Fetches a specific activity by its ID.
    *
-   * @param accessToken - The access token for authenticating the request.
    * @param activityId - The ID of the activity to retrieve.
    * @returns An observable containing the details of the specified activity.
    */
-  getActivityById(accessToken: string, activityId: number): Observable<any> {
-    return this.http.get<any>(`${this.stravaApiUrl}/activities/${activityId}`, {
-      headers: new HttpHeaders().set('Authorization', `Bearer ${accessToken}`),
-    });
+  getActivityById(activityId: number): Observable<any> {
+    return this.http.get<any>(`${this.stravaApiUrl}/activities/${activityId}`);
   }
 }

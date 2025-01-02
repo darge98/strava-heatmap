@@ -1,41 +1,63 @@
 import { Injectable } from '@angular/core';
-import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
-/**
- * Service for managing authentication tokens in local storage.
- */
 export class TokenService {
 
-  /**
-   * Saves a token to local storage.
-   *
-   * @param key - The key under which the token is stored.
-   * @param value - The token value to be stored.
-   */
-  saveToken(key: string, value: string) {
+  public static readonly ACCESS_TOKEN_KEY = 'strava_access_token';
+  public static readonly REFRESH_TOKEN_KEY = 'strava_refresh_token';
+  public static readonly EXPIRE_AT_KEY = 'strava_expire_at';
+
+  public saveAccessToken(accessToken: string) {
+    this.saveToken(TokenService.ACCESS_TOKEN_KEY, accessToken);
+  }
+
+  public saveRefreshToken(refreshToken: string) {
+    this.saveToken(TokenService.REFRESH_TOKEN_KEY, refreshToken);
+  }
+
+  public saveExpireAt(expiresAt: string) {
+    this.saveToken(TokenService.EXPIRE_AT_KEY, expiresAt);
+  }
+
+  public getAccessToken() {
+    return this.getToken(TokenService.ACCESS_TOKEN_KEY);
+  }
+
+  public getRefreshToken() {
+    return this.getToken(TokenService.REFRESH_TOKEN_KEY);
+  }
+
+  public getExpireAt() {
+    return this.getToken(TokenService.EXPIRE_AT_KEY);
+  }
+
+  public hasAccessToken() {
+    return this.hasToken(TokenService.ACCESS_TOKEN_KEY);
+  }
+
+  private saveToken(key: string, value: string) {
     localStorage.setItem(key, value);
   }
 
-  /**
-   * Retrieves a token from local storage.
-   *
-   * @param key - The key of the token to retrieve.
-   * @returns The token value associated with the key, or null if not found.
-   */
-  getToken(key: string) {
+  private getToken(key: string) {
     return localStorage.getItem(key);
   }
 
-  /**
-   * Checks if a token exists in local storage.
-   *
-   * @param key - The key of the token to check.
-   * @returns True if the token exists, false otherwise.
-   */
-  hasToken(key: string) {
+  private hasToken(key: string) {
     return localStorage.getItem(key) != null;
+  }
+
+  isAccessTokenExpired(): boolean {
+    const expiresAt = this.getExpireAt();
+    if (!expiresAt) {
+      return true;
+    }
+
+    const expirationTime = parseInt(expiresAt) * 1000; // Converti in millisecondi
+    const currentTime = Date.now();
+    
+    return currentTime >= (expirationTime - 60000);
   }
 }

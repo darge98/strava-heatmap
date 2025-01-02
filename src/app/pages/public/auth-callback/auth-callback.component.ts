@@ -25,13 +25,13 @@ import {TokenService} from "../../../services/token/token.service";
 })
 export class AuthCallbackComponent implements OnInit {
 
-  private route = inject(ActivatedRoute); // Injects the ActivatedRoute service to access route parameters
-  private router = inject(Router); // Injects the Router service for navigation
-  private stravaService = inject(StravaService); // Injects the StravaService to handle API calls
-  private tokenService = inject(TokenService); // Injects the TokenService to manage tokens
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private stravaService = inject(StravaService);
+  private tokenService = inject(TokenService);
 
-  loading = true; // Indicates whether the component is in a loading state
-  errorMessage: string | null = null; // Holds any error messages to be displayed
+  loading = true;
+  errorMessage: string | null = null;
 
   /**
    * Lifecycle hook that is called after the component has been initialized.
@@ -47,15 +47,18 @@ export class AuthCallbackComponent implements OnInit {
     }
 
     this.stravaService.exchangeCodeForToken(code).pipe(
-      take(1) // Takes only the first emitted value and completes
+      take(1)
     ).subscribe({
       next: (response: any) => {
-        this.tokenService.saveToken('stravaAccessToken', response['access_token']); // Saves the access token
-        this.router.navigate(['/dashboard']); // Navigates to the dashboard upon successful token retrieval
+        this.tokenService.saveAccessToken(response.access_token);
+        this.tokenService.saveRefreshToken(response.refresh_token);
+        this.tokenService.saveExpireAt(response.expires_at);
+        this.router.navigate(['/dashboard']);
       },
-      error: () => {
-        this.errorMessage = 'Errore durante il login con Strava.'; // Sets error message on failure
-        this.loading = false; // Stops loading state
+      error: (err) => {
+        this.errorMessage = 'Errore durante il login con Strava.';
+        console.log(this.errorMessage, err);
+        this.loading = false;
       }
     });
   }

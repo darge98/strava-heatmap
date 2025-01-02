@@ -10,7 +10,9 @@ import {
   NbSidebarModule,
   NbThemeModule
 } from "@nebular/theme";
-import {provideHttpClient} from "@angular/common/http";
+import {provideHttpClient, withInterceptors} from "@angular/common/http";
+import { authInterceptor } from './interceptor/http/auth.interceptor';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 const provideNebular = (): EnvironmentProviders[] => [
   importProvidersFrom(NbThemeModule.forRoot({ name: 'default' })),
@@ -18,14 +20,17 @@ const provideNebular = (): EnvironmentProviders[] => [
   importProvidersFrom(NbLayoutModule),
   importProvidersFrom(NbMenuModule),
   importProvidersFrom(NbButtonModule),
-  importProvidersFrom(NbIconModule)
+  importProvidersFrom(NbIconModule),
+  importProvidersFrom(NbEvaIconsModule)
 ]
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptors([authInterceptor])
+    ),
     provideNebular()
   ]
 };
